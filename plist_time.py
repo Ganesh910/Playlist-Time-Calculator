@@ -1,6 +1,7 @@
 from googleapiclient.discovery import build
 import isodate
 import os
+import argparse
 
 API_KEY = os.environ.get('YOUTUBE_API_KEY')
 PLAYLIST = '<playlist_id>'
@@ -84,7 +85,11 @@ class plist:
 
 
 def main():
-    pl = plist(PLAYLIST)
+
+    parser = argparse.ArgumentParser(description="Calculates the total duration of a youtube playlist")
+    parser.add_argument("-id", help="Id of the Playlist", type=str)
+    args = parser.parse_args()
+    pl = plist(args.id)
     h, m = pl.calTime()
     print('This playlist is : {} hours, {} minutes long!'.format(h, m))
 
